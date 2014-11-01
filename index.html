@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html> 
+<!DOCTYPE html> 
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,7 +21,7 @@
 			<a href="#left-panel" data-icon="carat-r" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Open left panel</a>
 		</div>
 		
-		<div role="main" class="ui-content">
+		<div role="main" id="comparison-div" class="ui-content">
 			<table id="comparison-table" data-mode="reflow" class="ui-responsive table-stroke">
 				<thead>
 					<tr>
@@ -32,24 +32,24 @@
 				</thead>
 				<tbody>
 					<tr height="50px" id="row1">
-						<td id="row1a">16</td>
-						<td id="row1b">1.00</td>
-						<td id="row1c">.45</td>
+						<td id="row1a" name="size">16</td>
+						<td id="row1b" name="price">>1.00</td>
+						<td id="row1c" name="ppu">.45</td>
 					</tr>
 					<tr height="50px" id="row2">
-						<td id="row2a"></td>
-						<td id="row2b"></td>
-						<td id="row2c"></td>
+						<td id="row2a" name="size"></td>
+						<td id="row2b" name="price"></td>
+						<td id="row2c" name="ppu"></td>
 					</tr>
 					<tr height="50px" id="row3">
-						<td id="row3a"></td>
-						<td id="row3b"></td>
-						<td id="row3c"></td>
+						<td id="row3a" name="size"></td>
+						<td id="row3b" name="price"></td>
+						<td id="row3c" name="ppu"></td>
 					</tr>
 					<tr height="50px" id="row4">
-						<td id="row4a"></td>
-						<td id="row4b"></td>
-						<td id="row4c"></td>
+						<td id="row4a" name="size"></td>
+						<td id="row4b" name="price"></td>
+						<td id="row4c" name="ppu"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -58,19 +58,19 @@
 		<div data-role="panel" id="left-panel" data-theme="b">
 			<div data-role="tabs">
 				<ul data-role="listview" data-inset="true" class="tablist-left">
-				  <li><a href="#comparison-page" data-theme="a" data-ajax="false">Soap</a></li>
+				  <li><a href="#product1" data-theme="a" data-ajax="false">Soap</a></li>
 				</ul>
 			</div>
 		</div>
 		
 		<div data-role="panel" id="right-panel" data-position="right" data-theme="b">
 			<div class="ui-field-contain">
-			    <label for="textinput-1">Size/Volume:</label>
-			    <input type="text" name="textinput-1" id="textinput-1"  value="">
+			    <label for="size">Size/Volume:</label>
+			    <input type="text" name="size" id="textinput-1"  value="">
 			</div>		
 			<div class="ui-field-contain">
-			    <label for="textinput-2">Price:</label>
-			    <input type="text" name="textinput-2" id="textinput-2"  value="">
+			    <label for="size">Price:</label>
+			    <input type="text" name="price" id="textinput-2"  value="">
 			</div>		
 		</div>
 	</div>
