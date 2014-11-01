@@ -13,11 +13,11 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 			};
 	}
 	
-	for (var i = 0; i < 2; i++) {
+	for (var i = 0; i < localItems.length; i++) {
 		var row = $("#comparison-table tr:nth-child("+(parseInt(i)+1)+")");
-		row.children("td:nth-child(1)").text(localItems[i].size);
-		row.children("td:nth-child(2)").text(localItems[i].price);
-		row.children("td:nth-child(3)").text(parseFloat(row.children("td:nth-child(2)").text()) / parseFloat(row.children("td:nth-child(1)").text()));
+		row.children("td[name='size']").text(localItems[i].size);
+		row.children("td[name='price']").text(localItems[i].price);
+		row.children("td[name='ppu']").text(parseFloat(row.children("td[name='price']").text()) / parseFloat(row.children("td[name='size']").text()));
 	}
 	
     $( document ).on( "swiperight", "#comparison-page", function( e ) {
@@ -38,11 +38,11 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
         if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
             if ( e.type === "swipeleft" ) {
 				var row = $(e.target).closest("tr");
-				$( "#right-panel input[id='textinput-1']").val(row.children("td:nth-child(1)").text());
-				$( "#right-panel input[id='textinput-1']").attr("refid", row.children("td:nth-child(1)").attr("id"));
+				$( "#right-panel input[name='size']").val(row.children("td[name='size']").text());
+				$( "#right-panel input[name='size']").attr("refid", row.children("td[name='size']").attr("id"));
 
-				$( "#right-panel input[id='textinput-2']").val(row.children("td:nth-child(2)").text());
-				$( "#right-panel input[id='textinput-2']").attr("refid", row.children("td:nth-child(2)").attr("id"));
+				$( "#right-panel input[name='price']").val(row.children("td[name='price']").text());
+				$( "#right-panel input[name='price']").attr("refid", row.children("td[name='price']").attr("id"));
                 $( "#right-panel" ).panel( "open" );
             }
         }
@@ -53,7 +53,7 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 		$("#" + refid).text($(this).val());
 		
 		var row = $("#" + refid).closest("tr");
-		row.children("td:nth-child(3)").text(parseFloat(row.children("td:nth-child(2)").text()) / parseFloat(row.children("td:nth-child(1)").text()));
+		row.children("td[name='ppu']").text(parseFloat(row.children("td[name='price']").text()) / parseFloat(row.children("td[name='size']").text()));
 	});	
 	
 });
