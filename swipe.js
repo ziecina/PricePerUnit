@@ -1,5 +1,26 @@
-$( document ).on( "pagecreate", "#demo-page", function() {
-    $( document ).on( "swiperight", "#demo-page", function( e ) {
+$( document ).on( "pagecreate", "#comparison-page", function() {
+	
+	var localItems = JSON.parse(localStorage.getItem("localItems"));
+	if (! localItems) {
+		localItems = [];
+		localItems[0] = {
+			"size":"1",
+			"price":"1.00"
+			};
+		localItems[1] = {
+			"size":"2",
+			"price":"2.00"
+			};
+	}
+	
+	for (var i = 0; i < 2; i++) {
+		var row = $("#comparison-table tr:nth-child("+(parseInt(i)+1)+")");
+		row.children("td:nth-child(1)").text(localItems[i].size);
+		row.children("td:nth-child(2)").text(localItems[i].price);
+		row.children("td:nth-child(3)").text(parseFloat(row.children("td:nth-child(2)").text()) / parseFloat(row.children("td:nth-child(1)").text()));
+	}
+	
+    $( document ).on( "swiperight", "#comparison-page", function( e ) {
         // We check if there is no open panel on the page because otherwise
         // a swipe to close the left panel would also open the right panel (and v.v.).
         // We do this by checking the data that the framework stores on the page element (panel: open).
@@ -10,7 +31,7 @@ $( document ).on( "pagecreate", "#demo-page", function() {
         }
     });
 	
-	$( document ).on( "swipeleft", "#mainTable1", function( e ) {
+	$( document ).on( "swipeleft", "#comparison-table", function( e ) {
         // We check if there is no open panel on the page because otherwise
         // a swipe to close the left panel would also open the right panel (and v.v.).
         // We do this by checking the data that the framework stores on the page element (panel: open).
@@ -33,7 +54,7 @@ $( document ).on( "pagecreate", "#demo-page", function() {
 		
 		var row = $("#" + refid).closest("tr");
 		row.children("td:nth-child(3)").text(parseFloat(row.children("td:nth-child(2)").text()) / parseFloat(row.children("td:nth-child(1)").text()));
-	});
+	});	
 	
 });
 
