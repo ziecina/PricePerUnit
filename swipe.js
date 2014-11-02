@@ -22,7 +22,7 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 	}
 	
 	$.each(localProducts, function(index, value){
-		$("#tablist").append('<li><a data-theme="a" data-ajax="false" product="'+ index +'">'+ value.name +'</a></li>');
+		$("#tablist").append($.parseHTML('<li><a data-theme="a" data-ajax="false" product="'+ index +'">'+ value.name +'</a></li>'));
 	});
 	$("#tablist li a").addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
 	$("#tablist li").removeClass("ui-last-child");
@@ -51,7 +51,7 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 				]
 			};
 			
-			$("#tablist").append('<li><a data-theme="a" data-ajax="false" product="'+ currentProduct +'">'+ "(Product Name)" +'</a></li>');
+			$("#tablist").append($.parseHTML('<li><a data-theme="a" data-ajax="false" product="'+ currentProduct +'">'+ "(Product Name)" +'</a></li>'));
 			$("#tablist li a").addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
 			$("#tablist li").removeClass("ui-last-child");
 			$("#tablist li:last-child").addClass("ui-last-child");
