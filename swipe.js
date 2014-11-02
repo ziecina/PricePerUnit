@@ -30,6 +30,22 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 		row.children("td[name='ppu']").text(value.price / value.size);
 		if (row.children("td[name='ppu']").text() == "NaN") row.children("td[name='ppu']").text("");
 	});
+	
+	
+		
+    $( document ).on( "click", "#left-panel li a", function( e ) {
+		currentProduct = $(e.target).attr("product");
+		
+		$( "h1[name='product-name']").text(localProducts[currentProduct].name);
+		$.each(localProducts[currentProduct].comparisons, function(index, value){
+			var row = $("#comparison-table tbody tr:nth-child("+(index + 1)+")");
+
+			row.children("td[name='size']").text(value.size);
+			row.children("td[name='price']").text(value.price);
+			row.children("td[name='ppu']").text(value.price / value.size);
+			if (row.children("td[name='ppu']").text() == "NaN") row.children("td[name='ppu']").text("");
+		});
+    });
 		
     $( document ).on( "swiperight", "#comparison-page", function( e ) {
         if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
