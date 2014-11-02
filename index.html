@@ -18,7 +18,7 @@
 	<div data-role="page" id="comparison-page" data-url="comparison-page">
 		<div data-role="header" data-theme="b">
 			<h1>Price Per Unit</h1>
-			<h1 name="product-name">(Product)</h1>
+			<h1 name="product-name">(Product Name)</h1>
 			<a href="#left-panel" data-icon="carat-r" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Open left panel</a>
 		</div>
 		
@@ -63,9 +63,8 @@
 		
 		<div data-role="panel" id="left-panel" data-theme="b">
 			<div data-role="tabs">
-				<ul data-role="listview" data-inset="true" class="tablist-left">
-				  <li><a data-theme="a" data-ajax="false" product="0">Soap</a></li>
-				  <li><a data-theme="a" data-ajax="false" product="1">Coke</a></li>
+				<ul id="tablist" data-role="listview" data-inset="true" class="tablist-left">
+				  <li product="add"><a data-theme="a" data-ajax="false" product="add"><i class="fa fa-plus-circle"></i> Add Product</a></li>
 				</ul>
 			</div>
 		</div>
@@ -84,7 +83,7 @@
 		<div data-role="panel" id="right-panel-product-name" data-position="right" data-theme="b">
 			<div class="ui-field-contain">
 			    <label for="size">Product:</label>
-			    <input type="text" name="product" value="">
+			    <input type="text" name="product" value="" placeholder="Product Name">
 			</div>		
 		</div>
 	</div>

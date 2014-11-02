@@ -21,6 +21,13 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 		};
 	}
 	
+	$.each(localProducts, function(index, value){
+		$("#tablist").append('<li><a data-theme="a" data-ajax="false" product="'+ index +'">'+ value.name +'</a></li>');
+	});
+	$("#tablist li a").addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
+	$("#tablist li").removeClass("ui-last-child");
+	$("#tablist li:last-child").addClass("ui-last-child");
+	
 	$( "h1[name='product-name']").text(localProducts[currentProduct].name);
 	$.each(localProducts[currentProduct].comparisons, function(index, value){
 		var row = $("#comparison-table tbody tr:nth-child("+(index + 1)+")");
@@ -30,16 +37,36 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 		row.children("td[name='ppu']").text(value.price / value.size);
 		if (row.children("td[name='ppu']").text() == "NaN") row.children("td[name='ppu']").text("");
 	});
-	
-	
-		
-    $( document ).on( "click", "#left-panel li a", function( e ) {
+			
+    $( document ).on( "click", "#left-panel li a", function( e ) {	
 		currentProduct = $(e.target).attr("product");
 		
+		if(currentProduct == "add") {
+			currentProduct = localProducts.length;
+			
+			localProducts[currentProduct] = {
+				"name": "Product Name",
+				"comparisons": [
+					{"size":"1","price":".99"}
+				]
+			};
+			
+			$("#tablist").append('<li><a data-theme="a" data-ajax="false" product="'+ currentProduct +'">'+ "(Product Name)" +'</a></li>');
+			$("#tablist li a").addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
+			$("#tablist li").removeClass("ui-last-child");
+			$("#tablist li:last-child").addClass("ui-last-child");
+			$( "#right-panel-product-name input[name='product']").val("");
+			$( "#right-panel-product-name" ).panel( "open" );
+		}
 		$( "h1[name='product-name']").text(localProducts[currentProduct].name);
+		
+		$("#comparison-table tbody td").text("");
+		
 		$.each(localProducts[currentProduct].comparisons, function(index, value){
 			var row = $("#comparison-table tbody tr:nth-child("+(index + 1)+")");
 
+			$("#comparison-table").children("td").text("");
+			
 			row.children("td[name='size']").text(value.size);
 			row.children("td[name='price']").text(value.price);
 			row.children("td[name='ppu']").text(value.price / value.size);
@@ -101,9 +128,11 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 	});	
 	
 	$( "#right-panel-product-name input").change(function(){
-		$( "h1[name='product-name']").text($( "#right-panel-product-name input[name='product']").val());
-		
-		localProducts[currentProduct].name = $("#right-panel-product-name input[name='product']").val();
+		var productName = $( "#right-panel-product-name input[name='product']").val();
+	
+		$( "h1[name='product-name']").text(productName);
+		$("#tablist li a[product='"+ currentProduct +"'").text(productName);
+		localProducts[currentProduct].name = productName;
 		localStorage["localProducts"] = JSON.stringify(localProducts);
 
 	});
