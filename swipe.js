@@ -22,13 +22,7 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 	}
 	
 	$.each(localProducts, function(index, value){
-		var li = $('<li>');
-		$("#tablist").append($(li));
-		var a = $('<a>', {'data-theme': 'a', product: index});
-		$(li).append($(a));
-		$(a).append(value.name);
-		$(a).addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
-		//$("#tablist").append($.parseHTML('<li><a data-theme="a" data-ajax="false" product="'+ index +'">'+ value.name +'</a></li>'));
+		$("#tablist").append($.parseHTML('<li><a data-theme="a" data-ajax="false" product="'+ index +'">'+ value.name +'</a></li>'));
 	});
 	$("#tablist li a").addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
 	$("#tablist li").removeClass("ui-last-child");
@@ -139,7 +133,7 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 		$( "h1[name='product-name']").text(productName);
 		localProducts[currentProduct].name = productName;
 		localStorage["localProducts"] = JSON.stringify(localProducts);
-		$("#tablist li a[product='"+ currentProduct +"'").text(productName);
+		$("#tablist li a").text(productName);
 	});
 });
 
