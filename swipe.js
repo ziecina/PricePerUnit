@@ -131,8 +131,8 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 		var productName = $( "#right-panel-product-name input[name='product']").val();
 	
 		$( "h1[name='product-name']").text(productName);
-		$("#tablist li a[product='"+ currentProduct +"'").text(productName);
 		localProducts[currentProduct].name = productName;
+		$("#tablist li a[product='"+ currentProduct +"'").text(productName);
 		localStorage["localProducts"] = JSON.stringify(localProducts);
 
 	});
