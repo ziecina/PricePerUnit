@@ -1,26 +1,36 @@
 $( document ).on( "pagecreate", "#comparison-page", function() {
 	
-	var localItems = JSON.parse(localStorage.getItem("localItems"));
-	if (! localItems) {
-		localItems = [];
-		localItems[0] = {
-			"size":"1",
-			"price":"1.00"
-			};
-		localItems[1] = {
-			"size":"2",
-			"price":"2.00"
-			};
-	}
-	
-	for (var i = 0; i < localItems.length; i++) {
-		var row = $("#comparison-table tr:nth-child("+(parseInt(i)+1)+")");
-		row.children("td[name='size']").text(localItems[i].size);
-		row.children("td[name='price']").text(localItems[i].price);
-		row.children("td[name='ppu']").text(parseFloat(row.children("td[name='price']").text()) / parseFloat(row.children("td[name='size']").text()));
-	}
+	var localProducts = JSON.parse(localStorage.getItem("localProducts"));
+	var currentProduct = 0;
+	if (! localProducts) {
+		localProducts = [];
 
+		localProducts[0] = {
+			"name": "Soap",
+			"comparisons": [
+				{"size":"3.4","price":".98"},
+				{"size":"16","price":"5.98"}
+			]
+		};
+		localProducts[1] = {
+			"name": "Coke",
+			"comparisons": [
+				{"size":"12","price":"4.98"},
+				{"size":"24","price":"6.98"}
+			]
+		};
+	}
 	
+	$( "h1[name='product-name']").text(localProducts[currentProduct].name);
+	$.each(localProducts[currentProduct].comparisons, function(index, value){
+		var row = $("#comparison-table tbody tr:nth-child("+(index + 1)+")");
+
+		row.children("td[name='size']").text(value.size);
+		row.children("td[name='price']").text(value.price);
+		row.children("td[name='ppu']").text(value.price / value.size);
+		if (row.children("td[name='ppu']").text() == "NaN") row.children("td[name='ppu']").text("");
+	});
+		
     $( document ).on( "swiperight", "#comparison-page", function( e ) {
         if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
             if ( e.type === "swiperight" ) {
@@ -29,7 +39,7 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
         }
     });
 	
-	$( document ).on( "swipeleft", "#comparison-table", function( e ) {
+	$( document ).on( "swipeleft", "#comparison-table tbody tr", function( e ) {
         if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
             if ( e.type === "swipeleft" ) {
 				var row = $(e.target).closest("tr");
@@ -44,12 +54,23 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
         }
     });
 	
+	
+	$( document ).on( "swipeleft", "h1[name='product-name']", function( e ) {
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+            if ( e.type === "swipeleft" ) {
+				$( "#right-panel-product-name input[name='product']").val($( "h1[name='product-name']").text());
+                $( "#right-panel-product-name" ).panel( "open" );
+            }
+        }
+    });
+	
 	$( "#right-panel input").change(function(){
 		var refid = $(this).attr("refid");
 		$("#" + refid).text($(this).val());
 		
 		var row = $("#" + refid).closest("tr");
 		row.children("td[name='ppu']").text(parseFloat(row.children("td[name='price']").text()) / parseFloat(row.children("td[name='size']").text()));
+		if (row.children("td[name='ppu']").text() == "NaN") row.children("td[name='ppu']").text("");
 		
 		var items = [];
 		var i = 0;
@@ -59,9 +80,16 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 				"price":$(this).children("td[name='price']").text()
 			};
 		});
-		localStorage["localItems"] = JSON.stringify(items);
-
+		localProducts[currentProduct].comparisons = items;
+		localStorage["localProducts"] = JSON.stringify(localProducts);
 	});	
 	
+	$( "#right-panel-product-name input").change(function(){
+		$( "h1[name='product-name']").text($( "#right-panel-product-name input[name='product']").val());
+		
+		localProducts[currentProduct].name = $("#right-panel-product-name input[name='product']").val();
+		localStorage["localProducts"] = JSON.stringify(localProducts);
+
+	});
 });
 
