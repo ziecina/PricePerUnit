@@ -22,7 +22,13 @@ $( document ).on( "pagecreate", "#comparison-page", function() {
 	}
 	
 	$.each(localProducts, function(index, value){
-		$("#tablist").append($.parseHTML('<li><a data-theme="a" data-ajax="false" product="'+ index +'">'+ value.name +'</a></li>'));
+		var li = $('<li>');
+		$("#tablist").append($(li));
+		var a = $('<a>', {'data-theme': 'a', product: index});
+		$(li).append($(a));
+		$(a).append(value.name);
+		$(a).addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
+		//$("#tablist").append($.parseHTML('<li><a data-theme="a" data-ajax="false" product="'+ index +'">'+ value.name +'</a></li>'));
 	});
 	$("#tablist li a").addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
 	$("#tablist li").removeClass("ui-last-child");
